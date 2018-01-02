@@ -12,6 +12,7 @@ namespace TimeStampTee
                 System.AppDomain.CurrentDomain.FriendlyName);
             Console.Error.WriteLine("-a: append logs to the end of file.");
             Console.Error.WriteLine("-t: append timestamps to the heads of each lines.");
+            Console.Error.WriteLine("-tz: append timestamps and timezones to the heads of each lines.");
         }
 
         static string AddTimeStamp(string line)
@@ -22,10 +23,21 @@ namespace TimeStampTee
             return "[" + ts + "] " + line;
         }
 
+        static string AddTimeStampTZ(string line)
+        {
+            var tz = System.TimeZoneInfo.Local;
+            var dt = DateTime.Now;
+            var offset = tz.GetUtcOffset(dt);
+            var ts = dt.ToString("yyyy/MM/dd HH:mm:ss.fff");
+
+            return string.Format("[{0} {1}] {2}", ts, tz, line);
+        }
+
         static int Main(string[] args)
         {
             string filename = null;
-            bool isAddTimeStamp = false;
+            bool isAddTimeStamp   = false;
+            bool isAddTimeStampTZ = false;
             bool isAppend = false;
 
             foreach (string arg in args)
@@ -39,6 +51,10 @@ namespace TimeStampTee
                     else if (string.Compare(arg, "-t") == 0)
                     {
                         isAddTimeStamp = true;
+                    }
+                    else if (string.Compare(arg, "-tz") == 0)
+                    {
+                        isAddTimeStampTZ = true;
                     }
                     else
                     {
@@ -74,7 +90,11 @@ namespace TimeStampTee
                         }
 
                         var data = line;
-                        if (isAddTimeStamp)
+                        if (isAddTimeStampTZ)
+                        {
+                            data = AddTimeStampTZ(line);
+                        }
+                        else if (isAddTimeStamp)
                         {
                             data = AddTimeStamp(line);
                         }
