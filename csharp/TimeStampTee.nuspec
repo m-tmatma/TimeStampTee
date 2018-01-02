@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>TimeStampTee</id>
+    <version>1.0.0</version>
+    <authors>Masaru Tsuchiyama</authors>
+    <owners>Masaru Tsuchiyama</owners>
+    <licenseUrl>https://raw.githubusercontent.com/m-tmatma/TimeStampTee/master/LICENCE.txt</licenseUrl>
+    <projectUrl>https://github.com/m-tmatma/TimeStampTee</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/m-tmatma/TimeStampTee/master/TimeStampTee.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>tee with Timestamp</description>
+    <releaseNotes>https://github.com/m-tmatma/TimeStampTee/releases</releaseNotes>
+    <copyright>Copyright 2018, Masaru Tsuchiyama</copyright>
+    <tags>tee timestamp timezone</tags>
+  </metadata>
+</package>
