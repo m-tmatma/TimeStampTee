@@ -8,4 +8,4 @@ del /Q *.nupkg
 %MSBUILD_EXE% TimeStampTee.sln /p:Configuration=Release  || (echo error && exit /b 1)
 %MSBUILD_EXE% TimeStampTee.sln /p:Configuration=Debug    || (echo error && exit /b 1)
 
-%NUGET_EXE% pack TimeStampTee.nuspec
+%NUGET_EXE% pack TimeStampTee.nuspec -Prop Configuration=Release
