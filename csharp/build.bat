@@ -1,4 +1,5 @@
 cd /d %~dp0
+@echo off
 
 if "%APPVEYOR%" == "True" (
 	set NUGET_EXE=nuget.exe
@@ -11,9 +12,22 @@ set MSBUILD_EXE="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\M
 
 del /Q *.nupkg || echo OK
 
-echo %MSBUILD_EXE% TimeStampTee.sln /p:Configuration=Release  %EXTRA_CMD% 
-     %MSBUILD_EXE% TimeStampTee.sln /p:Configuration=Release  %EXTRA_CMD% || (echo error && exit /b 1)
-echo %MSBUILD_EXE% TimeStampTee.sln /p:Configuration=Debug    %EXTRA_CMD% || (echo error && exit /b 1)
-     %MSBUILD_EXE% TimeStampTee.sln /p:Configuration=Debug    %EXTRA_CMD% || (echo error && exit /b 1)
+setlocal ENABLEDELAYEDEXPANSION
+set FRAMEWORK_VERSION1=3.5
+set FRAMEWORK_VERSION2=4.0
+set FRAMEWORK_VERSION3=4.5.2
+set FRAMEWORK_VERSION4=4.6
 
-%NUGET_EXE% pack TimeStampTee.nuspec -Prop Configuration=Release
+set i=1
+:BEGIN
+call set FRAMEWORK_VERSION=%%FRAMEWORK_VERSION!i!%%
+if defined FRAMEWORK_VERSION (
+	echo %MSBUILD_EXE% TimeStampTee.sln /p:Configuration=Release  /p:TargetFrameworkVersion="v!FRAMEWORK_VERSION!" /t:"Clean","Rebuild"  %EXTRA_CMD%
+	     %MSBUILD_EXE% TimeStampTee.sln /p:Configuration=Release  /p:TargetFrameworkVersion="v!FRAMEWORK_VERSION!" /t:"Clean","Rebuild"  %EXTRA_CMD% || (echo error && exit /b 1)
+
+	set /A i+=1
+	goto :BEGIN
+)
+
+echo %NUGET_EXE% pack TimeStampTee.nuspec -Prop Configuration=Release
+     %NUGET_EXE% pack TimeStampTee.nuspec -Prop Configuration=Release
