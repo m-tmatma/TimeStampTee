@@ -33,4 +33,4 @@ if defined FRAMEWORK_VERSION (
 )
 
 echo %NUGET_EXE% pack TimeStampTee.nuspec -Prop Configuration=Release
-     %NUGET_EXE% pack TimeStampTee.nuspec -Prop Configuration=Release
+     %NUGET_EXE% pack TimeStampTee.nuspec -Prop Configuration=Release || (echo error && exit /b 1)
