@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>TimeStampTee</id>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <authors>Masaru Tsuchiyama</authors>
     <owners>Masaru Tsuchiyama</owners>
     <licenseUrl>https://raw.githubusercontent.com/m-tmatma/TimeStampTee/master/LICENCE.txt</licenseUrl>
