@@ -25,6 +25,9 @@ if defined FRAMEWORK_VERSION (
 	echo %MSBUILD_EXE% TimeStampTee.sln /p:Configuration=Release  /p:TargetFrameworkVersion="v!FRAMEWORK_VERSION!" /t:"Clean","Rebuild"  %EXTRA_CMD%
 	     %MSBUILD_EXE% TimeStampTee.sln /p:Configuration=Release  /p:TargetFrameworkVersion="v!FRAMEWORK_VERSION!" /t:"Clean","Rebuild"  %EXTRA_CMD% || (echo error && exit /b 1)
 
+	echo %MSBUILD_EXE% TimeStampTee.sln /p:Configuration=Debug    /p:TargetFrameworkVersion="v!FRAMEWORK_VERSION!" /t:"Clean","Rebuild"  %EXTRA_CMD%
+	     %MSBUILD_EXE% TimeStampTee.sln /p:Configuration=Debug    /p:TargetFrameworkVersion="v!FRAMEWORK_VERSION!" /t:"Clean","Rebuild"  %EXTRA_CMD% || (echo error && exit /b 1)
+
 	set /A i+=1
 	goto :BEGIN
 )
