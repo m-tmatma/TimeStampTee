@@ -17,8 +17,12 @@
   <files>
     <file src="../LICENSE.txt" target="." />
     <file src="TimeStampTee/bin/Release/v3.5/TimeStampTee.exe"   target="lib\net35"  />
+    <file src="TimeStampTee/bin/Release/v3.5/TimeStampTee.pdb"   target="lib\net35"  />
     <file src="TimeStampTee/bin/Release/v4.0/TimeStampTee.exe"   target="lib\net40"  />
+    <file src="TimeStampTee/bin/Release/v4.0/TimeStampTee.pdb"   target="lib\net40"  />
     <file src="TimeStampTee/bin/Release/v4.5.2/TimeStampTee.exe" target="lib\net452" />
+    <file src="TimeStampTee/bin/Release/v4.5.2/TimeStampTee.pdb" target="lib\net452" />
     <file src="TimeStampTee/bin/Release/v4.6/TimeStampTee.exe  " target="lib\net46"  />
+    <file src="TimeStampTee/bin/Release/v4.6/TimeStampTee.pdb  " target="lib\net46"  />
   </files>
 </package>
