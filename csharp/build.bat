@@ -1,5 +1,7 @@
-cd /d %~dp0
 @echo off
+
+set SLN_FILE=%~dp0TimeStampTee.sln
+set SPC_FILE=%~dp0TimeStampTee.nuspec
 
 if "%APPVEYOR%" == "True" (
 	set NUGET_EXE=nuget.exe
@@ -10,7 +12,12 @@ if "%APPVEYOR%" == "True" (
 )
 set MSBUILD_EXE="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\MSBuild.exe"
 
-del /Q *.nupkg || echo OK
+for /r %%i in (*.nupkg) do (
+	if exist %%i (
+		echo removing %%i
+		del %%i
+	)
+)
 
 setlocal ENABLEDELAYEDEXPANSION
 set FRAMEWORK_VERSION1=3.5
@@ -22,15 +29,20 @@ set i=1
 :BEGIN
 call set FRAMEWORK_VERSION=%%FRAMEWORK_VERSION!i!%%
 if defined FRAMEWORK_VERSION (
-	echo %MSBUILD_EXE% TimeStampTee.sln /p:Configuration=Release  /p:TargetFrameworkVersion="v!FRAMEWORK_VERSION!" /t:"Clean","Rebuild"  %EXTRA_CMD%
-	     %MSBUILD_EXE% TimeStampTee.sln /p:Configuration=Release  /p:TargetFrameworkVersion="v!FRAMEWORK_VERSION!" /t:"Clean","Rebuild"  %EXTRA_CMD% || (echo error && exit /b 1)
+	echo %MSBUILD_EXE% %SLN_FILE% /p:Configuration=Release  /p:TargetFrameworkVersion="v!FRAMEWORK_VERSION!" /t:"Clean","Rebuild"  %EXTRA_CMD%
+	     %MSBUILD_EXE% %SLN_FILE% /p:Configuration=Release  /p:TargetFrameworkVersion="v!FRAMEWORK_VERSION!" /t:"Clean","Rebuild"  %EXTRA_CMD% || GOTO :ERROR_END
 
-	echo %MSBUILD_EXE% TimeStampTee.sln /p:Configuration=Debug    /p:TargetFrameworkVersion="v!FRAMEWORK_VERSION!" /t:"Clean","Rebuild"  %EXTRA_CMD%
-	     %MSBUILD_EXE% TimeStampTee.sln /p:Configuration=Debug    /p:TargetFrameworkVersion="v!FRAMEWORK_VERSION!" /t:"Clean","Rebuild"  %EXTRA_CMD% || (echo error && exit /b 1)
+	echo %MSBUILD_EXE% %SLN_FILE% /p:Configuration=Debug    /p:TargetFrameworkVersion="v!FRAMEWORK_VERSION!" /t:"Clean","Rebuild"  %EXTRA_CMD%
+	     %MSBUILD_EXE% %SLN_FILE% /p:Configuration=Debug    /p:TargetFrameworkVersion="v!FRAMEWORK_VERSION!" /t:"Clean","Rebuild"  %EXTRA_CMD% || GOTO :ERROR_END
 
 	set /A i+=1
 	goto :BEGIN
 )
 
-echo %NUGET_EXE% pack TimeStampTee.nuspec -Prop Configuration=Release
-     %NUGET_EXE% pack TimeStampTee.nuspec -Prop Configuration=Release || (echo error && exit /b 1)
+echo %NUGET_EXE% pack %SPC_FILE% -Prop Configuration=Release -OutputDirectory %~dp0
+     %NUGET_EXE% pack %SPC_FILE% -Prop Configuration=Release -OutputDirectory %~dp0 || GOTO :ERROR_END
+exit /b 0
+
+:ERROR_END
+echo error
+exit /b 1
