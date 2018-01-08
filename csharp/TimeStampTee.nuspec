@@ -5,7 +5,7 @@
     <version>1.0.1</version>
     <authors>Masaru Tsuchiyama</authors>
     <owners>Masaru Tsuchiyama</owners>
-    <licenseUrl>https://raw.githubusercontent.com/m-tmatma/TimeStampTee/master/LICENCE.txt</licenseUrl>
+    <licenseUrl>https://github.com/m-tmatma/TimeStampTee/blob/master/LICENSE.txt</licenseUrl>
     <projectUrl>https://github.com/m-tmatma/TimeStampTee</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/m-tmatma/TimeStampTee/master/TimeStampTee.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
