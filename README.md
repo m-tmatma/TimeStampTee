@@ -11,3 +11,8 @@ Tee with timestamp
 ### binary release
 
 https://www.nuget.org/packages/TimeStampTee
+
+### CI Build
+
+[CI Build](https://ci.appveyor.com/project/MasaruTsuchiyama/timestamptee/build/artifacts)
+
